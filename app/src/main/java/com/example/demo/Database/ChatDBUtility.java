@@ -49,8 +49,8 @@ public class ChatDBUtility {
     }
 
 
-    public ArrayList<DataList> GetDataList(ChatDBHelper DBHelper) {
-        Cursor cursor = GetRowsDataListDB(DBHelper);
+    public ArrayList<DataList> GetDataList(ChatDBHelper DBHelper,int id) {
+        Cursor cursor = GetRowsDataListDB(DBHelper,id);
 
         ArrayList<DataList> datalists = new ArrayList<DataList>();
         DataList datalist;
@@ -60,6 +60,7 @@ public class ChatDBUtility {
             datalist = new DataList();
             datalist.setId(cursor.getInt(cursor.getColumnIndex(FeedReaderContract.DataList.COLUMN_NAME_ID)));
             datalist.setColors(cursor.getString(cursor.getColumnIndex(FeedReaderContract.DataList.COLUMN_NAME_COLORS)));
+            datalist.setDate(cursor.getString(cursor.getColumnIndex(FeedReaderContract.DataList.COLUMN_NAME_DATE_AND_TIME)));
             datalist.setFav_cricketer(cursor.getString(cursor.getColumnIndex(FeedReaderContract.DataList.COLUMN_NAME_FAV_CRICKETER)));
             datalist.setName(cursor.getString(cursor.getColumnIndex(FeedReaderContract.DataList.COLUMN_NAME_NAME)));
 
@@ -77,7 +78,7 @@ public class ChatDBUtility {
     }
 
 
-    Cursor GetRowsDataListDB(ChatDBHelper chatDBHelper) {
+    Cursor GetRowsDataListDB(ChatDBHelper chatDBHelper,int id) {
         SQLiteDatabase db = chatDBHelper.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
@@ -87,7 +88,7 @@ public class ChatDBUtility {
                 FeedReaderContract.DataList.COLUMN_NAME_FAV_CRICKETER,
                 FeedReaderContract.DataList.COLUMN_NAME_NAME,
                 FeedReaderContract.DataList.COLUMN_NAME_ID,
-
+                FeedReaderContract.DataList.COLUMN_NAME_DATE_AND_TIME,
 
         };
 
@@ -95,6 +96,11 @@ public class ChatDBUtility {
         // String sortOrder =
         //
         String whereClause = "";
+
+        if(id!=0)
+        {
+            whereClause = "(" + FeedReaderContract.DataList.COLUMN_NAME_ID + " = "  + id + ")";
+        }
 
 
         Cursor c = db.query(
@@ -121,11 +127,29 @@ public class ChatDBUtility {
         db.execSQL(strSQL);
     }
 
+    public void UpdateName(ChatDBHelper chatDBHelper, String name,int id) {
+
+        SQLiteDatabase db = chatDBHelper.getWritableDatabase();
+
+        String strSQL = "UPDATE " + FeedReaderContract.DataList.TABLE_NAME + " Set " + FeedReaderContract.DataList.COLUMN_NAME_NAME + " = '" + name +
+                "' where " + FeedReaderContract.DataList.COLUMN_NAME_ID + " = " + id;
+        db.execSQL(strSQL);
+    }
+
     public void UpdateColors(ChatDBHelper chatDBHelper, String colors,int id) {
 
         SQLiteDatabase db = chatDBHelper.getWritableDatabase();
 
         String strSQL = "UPDATE " + FeedReaderContract.DataList.TABLE_NAME + " Set " + FeedReaderContract.DataList.COLUMN_NAME_COLORS + " = '" + colors +
+                "' where " + FeedReaderContract.DataList.COLUMN_NAME_ID + " = " + id;
+        db.execSQL(strSQL);
+    }
+
+    public void UpdateDate(ChatDBHelper chatDBHelper, String date,int id) {
+
+        SQLiteDatabase db = chatDBHelper.getWritableDatabase();
+
+        String strSQL = "UPDATE " + FeedReaderContract.DataList.TABLE_NAME + " Set " + FeedReaderContract.DataList.COLUMN_NAME_DATE_AND_TIME + " = '" + date +
                 "' where " + FeedReaderContract.DataList.COLUMN_NAME_ID + " = " + id;
         db.execSQL(strSQL);
     }

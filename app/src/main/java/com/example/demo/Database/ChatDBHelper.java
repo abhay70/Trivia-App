@@ -25,6 +25,7 @@ public class ChatDBHelper extends SQLiteOpenHelper {
                     FeedReaderContract.DataList.COLUMN_NAME_ID + INTEGER_TYPE  + " PRIMARY KEY AUTOINCREMENT " + COMMA_SEP +
                     FeedReaderContract.DataList.COLUMN_NAME_NAME + TEXT_TYPE  + COMMA_SEP +
                     FeedReaderContract.DataList.COLUMN_NAME_FAV_CRICKETER + TEXT_TYPE  + COMMA_SEP +
+                    FeedReaderContract.DataList.COLUMN_NAME_DATE_AND_TIME + TEXT_TYPE  + COMMA_SEP +
                     FeedReaderContract.DataList.COLUMN_NAME_COLORS + TEXT_TYPE  +
 
                     " )";

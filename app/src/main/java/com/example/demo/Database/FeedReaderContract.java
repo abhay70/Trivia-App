@@ -17,7 +17,7 @@ public final class FeedReaderContract {
         public static final String COLUMN_NAME_NAME = "description";
         public static final String COLUMN_NAME_FAV_CRICKETER = "fav_cricketer";
         public static final String COLUMN_NAME_COLORS = "colors";
-
+        public static final String COLUMN_NAME_DATE_AND_TIME = "date";
     }
 
 
