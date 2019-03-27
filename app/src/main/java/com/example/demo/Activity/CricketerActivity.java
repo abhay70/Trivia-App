@@ -3,12 +3,14 @@ package com.example.demo.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demo.Database.ChatDBHelper;
@@ -21,6 +23,7 @@ public class CricketerActivity extends AppCompatActivity {
 
     CheckBox sachin,virat,adam,kallis;
     Button next;
+    TextView header_title;
 
 
     ChatDBHelper chatDBHelper;
@@ -35,7 +38,8 @@ public class CricketerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cricketer);
-
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
         chatDBUtility = new ChatDBUtility();
         chatDBHelper = chatDBUtility.CreateChatDB(CricketerActivity.this);
 
@@ -50,6 +54,7 @@ public class CricketerActivity extends AppCompatActivity {
 
     private void setData() {
 
+    header_title.setText("Choose Cricketer");
 
     }
 
@@ -74,6 +79,8 @@ public class CricketerActivity extends AppCompatActivity {
 
             }
         });
+
+        //setOnCheckedChangeListener for only checkbox will be selected at a time
 
         sachin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -124,7 +131,7 @@ public class CricketerActivity extends AppCompatActivity {
             }
         });
 
-
+//setOnClickListener for saving the value in string
         sachin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +207,7 @@ public class CricketerActivity extends AppCompatActivity {
         virat=(CheckBox)findViewById(R.id.virat);
         adam=(CheckBox)findViewById(R.id.adam);
         kallis=(CheckBox)findViewById(R.id.kallis);
-
+        header_title=(TextView)findViewById(R.id.header_title);
         next=(Button)findViewById(R.id.next);
 
     }

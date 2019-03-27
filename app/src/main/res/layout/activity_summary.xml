@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:padding="@dimen/padding_textView"
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:padding="@dimen/padding_textView"
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text2" />
 
     <Button
-        android:background="@color/blue"
+        android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:id="@+id/finish"

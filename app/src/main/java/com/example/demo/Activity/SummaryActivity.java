@@ -3,11 +3,13 @@ package com.example.demo.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.demo.Database.ChatDBHelper;
 import com.example.demo.Database.ChatDBUtility;
@@ -22,7 +24,7 @@ import java.util.Date;
 
 public class SummaryActivity extends AppCompatActivity {
 
-    TextView name_show,answer,answer_flag;
+    TextView name_show,answer,answer_flag,header_title;
     Button finish;
 
 
@@ -37,7 +39,8 @@ public class SummaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
-
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
         chatDBUtility = new ChatDBUtility();
         chatDBHelper = chatDBUtility.CreateChatDB(SummaryActivity.this);
 
@@ -53,10 +56,15 @@ public class SummaryActivity extends AppCompatActivity {
     private void setData() {
 
 
+
         dataLists=chatDBUtility.GetDataList(chatDBHelper,id);
+
+
         answer.setText(getString(R.string.answer)+dataLists.get(0).getFav_cricketer());
         answer_flag.setText(getString(R.string.answer)+dataLists.get(0).getColors());
         name_show.setText(getString(R.string.hello)+dataLists.get(0).getName());
+
+        header_title.setText("Summary Page");
 
     }
 
@@ -67,8 +75,10 @@ public class SummaryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 updateDateAndTime();
 
-                //Clearing all previous activity.
+                Toast.makeText(SummaryActivity.this, "Data has been saved successfully ", Toast.LENGTH_SHORT).show();
+
                 Intent i = new Intent(SummaryActivity.this, HomepageActivity.class);
+                //Clearing all previous activity from stack
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(CommonConstants.USER_SETTINGS_PREFERENCE, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
@@ -97,6 +107,7 @@ public class SummaryActivity extends AppCompatActivity {
         answer=(TextView)findViewById(R.id.answer);
         answer_flag=(TextView)findViewById(R.id.answer_flag);
         finish=(Button) findViewById(R.id.finish);
+        header_title=(TextView)findViewById(R.id.header_title);
     }
 
 
@@ -108,6 +119,7 @@ public class SummaryActivity extends AppCompatActivity {
 
     }
 
+    //for date and time format
     public static String getFormattedDate(Date date){
         Calendar cal=Calendar.getInstance();
         cal.setTime(date);
@@ -117,15 +129,15 @@ public class SummaryActivity extends AppCompatActivity {
         if(!((day>10) && (day<19)))
             switch (day % 10) {
                 case 1:
-                    return new SimpleDateFormat("d'st' 'of' MMMM hh:mm aaa").format(date);
+                    return new SimpleDateFormat("d'st'  MMMM hh:mm aaa").format(date);
                 case 2:
-                    return new SimpleDateFormat("d'nd' 'of' MMMM hh:mm aaa ").format(date);
+                    return new SimpleDateFormat("d'nd'  MMMM hh:mm aaa ").format(date);
                 case 3:
-                    return new SimpleDateFormat("d'rd' 'of' MMMM hh:mm aaa").format(date);
+                    return new SimpleDateFormat("d'rd'  MMMM hh:mm aaa").format(date);
                 default:
-                    return new SimpleDateFormat("d'th' 'of' MMMM hh:mm aaa").format(date);
+                    return new SimpleDateFormat("d'th'  MMMM hh:mm aaa").format(date);
             }
-        return new SimpleDateFormat("d'th' 'of' MMMM hh:mm aaa").format(date);
+        return new SimpleDateFormat("d'th'  MMMM hh:mm aaa").format(date);
     }
 
 }

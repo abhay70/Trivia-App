@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.MyViewH
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         public TextView game,name,answer,answer_flag;
-
+        public ConstraintLayout layout;
 
 
         //  public Button furnished;
@@ -51,6 +52,7 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.MyViewH
             this.name=(TextView)itemView.findViewById(R.id.name);
             this.answer=(TextView)itemView.findViewById(R.id.answer);
             this.answer_flag=(TextView)itemView.findViewById(R.id.answer_flag);
+            this.layout=(ConstraintLayout)itemView.findViewById(R.id.layout);
 
 
         }
@@ -84,10 +86,19 @@ public class HistoryAdapter extends  RecyclerView.Adapter<HistoryAdapter.MyViewH
 
         try{
 
+            if(dataLists.get(position).getDate()!=null && !dataLists.get(position).getDate().equals(""))
+            {
+
+
+                holder.layout.setVisibility(View.VISIBLE);
             holder.name.setText(context.getString(R.string.name)+dataLists.get(position).getName());
             holder.answer.setText(context.getString(R.string.answer)+dataLists.get(position).getFav_cricketer());
             holder.answer_flag.setText(context.getString(R.string.answer)+dataLists.get(position).getColors());
-            holder.game.setText("Game "+dataLists.get(position).getId() + " : "+dataLists.get(position).getColors());
+            holder.game.setText("Game "+dataLists.get(position).getId() + " : "+dataLists.get(position).getDate());
+            }else
+            {
+               holder.layout.setVisibility(View.GONE);
+            }
 
         }catch (Exception e)
         {

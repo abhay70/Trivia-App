@@ -3,11 +3,13 @@ package com.example.demo.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demo.Database.ChatDBHelper;
@@ -21,6 +23,7 @@ public class ColorsActivity extends AppCompatActivity {
 
     CheckBox white,yellow,orange,green;
     Button next;
+    TextView header_title;
 
     ChatDBHelper chatDBHelper;
     ChatDBUtility chatDBUtility;
@@ -35,7 +38,8 @@ public class ColorsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colors);
-
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
 
         chatDBUtility = new ChatDBUtility();
         chatDBHelper = chatDBUtility.CreateChatDB(ColorsActivity.this);
@@ -50,10 +54,13 @@ public class ColorsActivity extends AppCompatActivity {
 
     private void setData() {
 
+        header_title.setText("Choose colors");
 
     }
 
     private void initializeListener() {
+
+
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +68,7 @@ public class ColorsActivity extends AppCompatActivity {
 
                 if(name.size()!=0)
                 {
+
                     StringBuilder colors= new StringBuilder();
                     for (int i=0;i<name.size();i++)
                     {
@@ -84,6 +92,7 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
+
 
 
 
@@ -203,6 +212,7 @@ public class ColorsActivity extends AppCompatActivity {
         orange=(CheckBox)findViewById(R.id.orange);
         green=(CheckBox)findViewById(R.id.green);
         next=(Button) findViewById(R.id.next);
+        header_title=(TextView)findViewById(R.id.header_title);
     }
 
     public void GetSharedPreference()
